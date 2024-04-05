@@ -8,9 +8,57 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Global Average Temperatures 1880 - 2023</h1>
+    <h1>Weights of Freshies</h1>
     <canvas id="myChart" width="400" height="200"></canvas>
     <script>
+        // window.addEventListener("load", fetchData);
+        // function fetchData() {
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.open("GET", "http://localhost:3000/csv-data", true);
+        //     xhr.onreadystatechange = function () {
+        //         if(xhr.readyState === 4 && xhr.status === 200) {
+        //             let data = xhr.responseText;
+        //             const globalTemps = processData(data);
+        //             renderChart(globalTemps);
+        //             console.log(globalTemps);
+        //         } else {
+        //             console.log("Error", xhr.statusText);
+        //         };
+        //     }
+        //     xhr.send();
+        // }
+        // function processData(data) {
+        //     const years = [];
+        //     const temps = [];
+        //     rows = data.split("\n").slice(1);
+        //     //console.log(rows[0]);
+        //     rows.forEach(row => {
+        //         const cols = row.split(",");
+        //         years.push(cols[0]);
+        //         temps.push(14 + parseFloat(cols[1]));
+        //     });
+        //     return{ years, temps };
+        // }
+        // function renderChart(data) {
+        //     console.log("hi from renderChart", data);
+        //     const ctx = document.getElementById('myChart');
+        //     new Chart(ctx, {
+        //         type: 'line',
+        //         data: {
+        //         labels: data.years,
+        //         datasets: [{
+        //             label: 'Temperature in Celsius',
+        //             data: data.temps,
+        //             fill: false,
+        //             borderWidth: 1,
+        //             borderColor: 'rgba(255, 199, 132, 1)',
+        //             backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        //         }]
+        //         },
+        //         options: {},
+        //     });
+        // }
+
         window.addEventListener("load", fetchData);
         function fetchData() {
             const xhr = new XMLHttpRequest();
@@ -18,9 +66,9 @@
             xhr.onreadystatechange = function () {
                 if(xhr.readyState === 4 && xhr.status === 200) {
                     let data = xhr.responseText;
-                    const globalTemps = processData(data);
-                    renderChart(globalTemps);
-                    console.log(globalTemps);
+                    const freshmanWeights = processData(data);
+                    renderChart(freshmanWeights);
+                    console.log(freshmanWeights);
                 } else {
                     console.log("Error", xhr.statusText);
                 };
@@ -28,16 +76,16 @@
             xhr.send();
         }
         function processData(data) {
-            const years = [];
-            const temps = [];
+            const genders = [];
+            const septWeights = [];
             rows = data.split("\n").slice(1);
             //console.log(rows[0]);
             rows.forEach(row => {
                 const cols = row.split(",");
-                years.push(cols[0]);
-                temps.push(14 + parseFloat(cols[1]));
+                genders.push(cols[0]);
+                septWeights.push(14 + parseFloat(cols[1]));
             });
-            return{ years, temps };
+            return{ genders, septWeights };
         }
         function renderChart(data) {
             console.log("hi from renderChart", data);
@@ -45,10 +93,10 @@
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                labels: data.years,
+                labels: data.genders,
                 datasets: [{
-                    label: 'Temperature in Celsius',
-                    data: data.temps,
+                    label: 'Weights in September',
+                    data: data.septWeights,
                     fill: false,
                     borderWidth: 1,
                     borderColor: 'rgba(255, 199, 132, 1)',
